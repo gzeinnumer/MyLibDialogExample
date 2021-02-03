@@ -1,12 +1,11 @@
 package com.gzeinnumer.mylibdialogexample;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
-import android.widget.Button;
+import android.os.CountDownTimer;
 import android.widget.Toast;
 
-import com.gzeinnumer.mylibdialog.constant.DateScreenStyle;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.gzeinnumer.mylibdialog.constant.DialogType;
 import com.gzeinnumer.mylibdialog.dialog.confirmDialog.ConfirmDialog;
 import com.gzeinnumer.mylibdialog.dialog.datePickerDialog.multi.MultiDatePickerDialog;
@@ -14,55 +13,49 @@ import com.gzeinnumer.mylibdialog.dialog.datePickerDialog.single.SingleDatePicke
 import com.gzeinnumer.mylibdialog.dialog.infoDialog.InfoDialog;
 import com.gzeinnumer.mylibdialog.dialog.loadingDialog.LoadingDialog;
 import com.gzeinnumer.mylibdialog.dialog.numberPicker.NumberPickerDialog;
+import com.gzeinnumer.mylibdialogexample.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button btn1, btn2, btn3, btn4, btn5, btn6;
-
-    private void initView(){
-        btn1 = findViewById(R.id.btn1);
-        btn2 = findViewById(R.id.btn2);
-        btn3 = findViewById(R.id.btn3);
-        btn4 = findViewById(R.id.btn4);
-        btn5 = findViewById(R.id.btn5);
-        btn6 = findViewById(R.id.btn6);
-    }
+    private ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        initView();
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
         initOnClick();
     }
 
     private void initOnClick() {
-        btn1.setOnClickListener(v -> {
-            initConfirmDialog();
+        binding.btnConfirmDialog.setOnClickListener(v -> {
+            dialogConfirm();
         });
-        btn2.setOnClickListener(v -> {
-            initInfoDialog();
+
+        binding.btnInfoDialog.setOnClickListener(v -> {
+            dialogInfo();
         });
-        btn3.setOnClickListener(v -> {
-            initNumberPickerDialog();
+
+        binding.btnNumberPickerDialog.setOnClickListener(v -> {
+            dialogNumberPicker();
         });
-        btn4.setOnClickListener(v -> {
-            initLoadingDialog();
+
+        binding.btnLoadingDialog.setOnClickListener(v -> {
+            dialogLoading();
         });
-        btn5.setOnClickListener(v -> {
-            initSingleDatePickerDialog();
+
+        binding.btnSingleDateDialog.setOnClickListener(v -> {
+            dialogSingleDate();
         });
-        btn6.setOnClickListener(v -> {
-            initMultiDatePickerDialog();
+
+        binding.btnMultiDateDialog.setOnClickListener(v -> {
+            dialogMultiDate();
         });
     }
 
-    private void initConfirmDialog() {
+    private void dialogConfirm() {
         new ConfirmDialog(getSupportFragmentManager())
-//                .setDialogCanvas(getResources().getDrawable(R.drawable.rounded_corner))
-//                .setDialogCanvas(getResources().getDrawable(R.drawable.rounded_corner_2))
-//                .setDialogCanvas(getResources().getDrawable(R.drawable.rounded_layer))
-                .setDialogCanvas(getResources().getDrawable(R.drawable.dialog_shadow))
                 .setTitle("ini title")
                 .setContent("ini content")
                 .onCancelPressedCallBack(new ConfirmDialog.OnCancelPressed() {
@@ -80,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                 .show();
     }
 
-    private void initInfoDialog() {
+    private void dialogInfo() {
         new InfoDialog(getSupportFragmentManager())
                 .setDialogType(DialogType.DialogSuccess)
                 .setTitle("ini title")
@@ -94,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
                 .show();
     }
 
-    private void initNumberPickerDialog() {
+    private void dialogNumberPicker() {
         new NumberPickerDialog(getSupportFragmentManager())
                 .setLastValue(12)
                 .setTitle("ini title")
@@ -114,19 +107,27 @@ public class MainActivity extends AppCompatActivity {
                 .show();
     }
 
-    private void initLoadingDialog() {
+    private void dialogLoading() {
         LoadingDialog loadingDialog = new LoadingDialog(getSupportFragmentManager())
                 .setContent("ini content");
 
         loadingDialog.show();
 
-//        loadingDialog.dismis();
+        //5 second 4 Second ...... 1 Second
+        new CountDownTimer(5000, 1000) {
 
+            public void onTick(long millisUntilFinished) {
+                int progress = (int) millisUntilFinished / 1000;
+            }
+
+            public void onFinish() {
+                loadingDialog.dismis();
+            }
+        }.start();
     }
 
-    private void initSingleDatePickerDialog() {
+    private void dialogSingleDate() {
         new SingleDatePickerDialog(getSupportFragmentManager())
-                .setDialogScreen(DateScreenStyle.DialogScreen)
                 .setTimeZone("GMT")
                 .setTitle("Pilih tanggal")
                 .setSelectedToday(true)
@@ -143,9 +144,8 @@ public class MainActivity extends AppCompatActivity {
                 .show();
     }
 
-    private void initMultiDatePickerDialog() {
+    private void dialogMultiDate() {
         new MultiDatePickerDialog(getSupportFragmentManager())
-                .setDialogScreen(DateScreenStyle.DialogScreen)
                 .setTimeZone("GMT")
                 .setTitle("Pilih tanggal")
                 .setTimeFormat("dd/MM/yyyy") //pastikan 3 pola ini sama
