@@ -6,13 +6,13 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.gzeinnumer.mylibdialog.constant.DialogType;
-import com.gzeinnumer.mylibdialog.dialog.confirmDialog.ConfirmDialog;
-import com.gzeinnumer.mylibdialog.dialog.datePickerDialog.multi.MultiDatePickerDialog;
-import com.gzeinnumer.mylibdialog.dialog.datePickerDialog.single.SingleDatePickerDialog;
-import com.gzeinnumer.mylibdialog.dialog.infoDialog.InfoDialog;
-import com.gzeinnumer.mylibdialog.dialog.loadingDialog.LoadingDialog;
-import com.gzeinnumer.mylibdialog.dialog.numberPicker.NumberPickerDialog;
+import com.gzeinnumer.da.constant.DialogType;
+import com.gzeinnumer.da.dialog.confirmDialog.ConfirmDialog;
+import com.gzeinnumer.da.dialog.datePickerDialog.multi.MultiDatePickerDialog;
+import com.gzeinnumer.da.dialog.datePickerDialog.single.SingleDatePickerDialog;
+import com.gzeinnumer.da.dialog.infoDialog.InfoDialog;
+import com.gzeinnumer.da.dialog.loadingDialog.LoadingDialog;
+import com.gzeinnumer.da.dialog.numberPicker.NumberPickerDialog;
 import com.gzeinnumer.mylibdialogexample.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
